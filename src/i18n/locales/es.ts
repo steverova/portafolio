@@ -50,12 +50,18 @@ export const es = {
     },
   },
   tools: {
-    eyebrow: 'Stack',
     title: 'Herramientas',
     description:
       'Todo lo que uso para programar: entorno, asistentes IA, lenguajes, frameworks y servicios. Filtra por área o por lenguaje.',
   },
   stack: {
+    filter: {
+      area: 'Área',
+      language: 'Lenguaje',
+      allAreas: 'Todas',
+      allLanguages: 'Todos',
+      empty: 'No hay herramientas para esa combinación. Prueba con otro filtro.',
+    },
     areas: {
       frontend: 'Frontend',
       backend: 'Backend',

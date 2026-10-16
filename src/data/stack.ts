@@ -35,7 +35,6 @@ import blazorIcon from '../assets/logos/blazor.svg'
 import mysqlIcon from '../assets/logos/mysql.png'
 import postgresqlIcon from '../assets/logos/postgresql.ico'
 import sqlserverIcon from '../assets/logos/sqlserver.ico'
-import sqliteIcon from '../assets/logos/sqlite.png'
 import redisIcon from '../assets/logos/redis.png'
 import awsIcon from '../assets/logos/aws.png'
 import cloudflareIcon from '../assets/logos/cloudflare.ico'
@@ -53,6 +52,10 @@ export type StackArea = (typeof AREAS)[number]
 export const LANGUAGES = ['TypeScript', 'JavaScript', 'C#', 'SQL'] as const
 
 export type StackLanguage = (typeof LANGUAGES)[number]
+
+/** Filtro activo del stack: un valor concreto o `'all'` para no filtrar. */
+export type AreaFilter = StackArea | 'all'
+export type LanguageFilter = StackLanguage | 'all'
 
 export type StackItem = {
   name: string
@@ -112,7 +115,6 @@ export const STACK: StackItem[] = [
   { name: 'MySQL', icon: mysqlIcon, areas: ['datos'], languages: ['SQL'] },
   { name: 'PostgreSQL', icon: postgresqlIcon, areas: ['datos'], languages: ['SQL'] },
   { name: 'SQL Server', icon: sqlserverIcon, areas: ['datos'], languages: ['SQL'] },
-  { name: 'SQLite', icon: sqliteIcon, areas: ['datos'], languages: ['SQL'] },
   { name: 'Redis', icon: redisIcon, areas: ['datos'] },
   // Nube e infraestructura
   { name: 'AWS', icon: awsIcon, areas: ['infra'] },
@@ -122,3 +124,16 @@ export const STACK: StackItem[] = [
   { name: 'Caddy', icon: caddyIcon, areas: ['infra'] },
   { name: 'PM2', icon: pm2Icon, areas: ['infra'] },
 ]
+
+/**
+ * Aplica los filtros del stack. Un item sin `languages` no coincide con
+ * ningun filtro de lenguaje (no se puede afirmar que use ese lenguaje).
+ */
+export function filterStack(area: AreaFilter, language: LanguageFilter): StackItem[] {
+  return STACK.filter((item) => {
+    const matchesArea = area === 'all' || item.areas.includes(area)
+    const matchesLanguage = language === 'all' || (item.languages?.includes(language) ?? false)
+
+    return matchesArea && matchesLanguage
+  })
+}

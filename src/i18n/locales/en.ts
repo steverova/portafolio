@@ -50,12 +50,18 @@ export const en = {
     },
   },
   tools: {
-    eyebrow: 'Stack',
     title: 'Tools',
     description:
       'Everything I use to build software: environment, AI assistants, languages, frameworks and services. Filter by area or language.',
   },
   stack: {
+    filter: {
+      area: 'Area',
+      language: 'Language',
+      allAreas: 'All',
+      allLanguages: 'All',
+      empty: 'No tools match that combination. Try another filter.',
+    },
     areas: {
       frontend: 'Frontend',
       backend: 'Backend',

@@ -1,12 +1,17 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import type { AreaFilter, LanguageFilter } from '../data/stack'
 import { Container } from '../components/ui/Container'
 import { SectionHeader } from '../components/ui/SectionHeader'
+import { StackFilters } from '../components/ui/StackFilters'
 import { StackMarquee } from '../components/ui/StackMarquee'
 import { Section } from '../components/layout/Section'
 import Ferrofluid from '../components/backgrounds/Ferrofluid'
 
 export function ToolsSection() {
   const { t } = useTranslation()
+  const [area, setArea] = useState<AreaFilter>('all')
+  const [language, setLanguage] = useState<LanguageFilter>('all')
 
   return (
     <Section id="herramientas" labelledBy="herramientas-title" className="relative overflow-hidden">
@@ -45,12 +50,18 @@ export function ToolsSection() {
       <Container className="relative">
         <SectionHeader
           id="herramientas-title"
-          eyebrow={t('tools.eyebrow')}
           title={t('tools.title')}
           description={t('tools.description')}
         />
 
-        <StackMarquee />
+        <StackFilters
+          area={area}
+          language={language}
+          onAreaChange={setArea}
+          onLanguageChange={setLanguage}
+        />
+
+        <StackMarquee area={area} language={language} />
       </Container>
     </Section>
   )

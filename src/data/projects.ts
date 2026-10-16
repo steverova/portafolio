@@ -1,6 +1,6 @@
-import bookmarksImage from '../assets/proyects/bookmarks.png'
-import codeImage from '../assets/proyects/code.jpg'
-import opencodeImage from '../assets/proyects/opencode.png'
+import bookmarksImage from '../assets/proyects/bookmarks.webp'
+import codeImage from '../assets/proyects/code.webp'
+import opencodeImage from '../assets/proyects/opencode.webp'
 
 export type Project = {
   id: string
