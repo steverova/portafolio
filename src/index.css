@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Tema (Tailwind v4 usa CSS para configurar, no tailwind.config.js)
+   Color primario: #e10717  |  Fondo: negro
+--------------------------------------------------------------------------- */
+@theme {
+  /* Marca */
+  --color-primary: #e10717;
+  --color-primary-soft: #ff2f3d;
+  --color-primary-strong: #a80512;
+
+  /* Superficies */
+  --color-background: #050505;
+  --color-surface: #0e0e0e;
+  --color-surface-raised: #171717;
+  --color-border: #27272a;
+
+  /* Texto */
+  --color-foreground: #fafafa;
+  --color-muted: #a1a1aa;
+
+  /* Tipografia */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Foco visible y consistente en toda la app (accesibilidad) */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  /* Scrollbar acorde al tema */
+  * {
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Resplandor decorativo con el color primario */
+  .glow-primary {
+    background-image: radial-gradient(
+      60% 60% at 50% 0%,
+      color-mix(in oklab, var(--color-primary) 28%, transparent) 0%,
+      transparent 70%
+    );
+  }
+
+  /* -------------------------------------------------------------------------
+     Marquesina de logos: filas que se desplazan en loop.
+     Cada grupo se repite (copia) y el track se mueve -50% para un loop continuo.
+     El gap del grupo se traslada como padding para que -50% caiga exacto.
+  ------------------------------------------------------------------------- */
+  .marquee {
+    position: relative;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll var(--marquee-duration, 40s) linear infinite;
+  }
+
+  .marquee__track[data-direction="right"] {
+    animation-direction: reverse;
+  }
+
+  .marquee__group {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 2.25rem;
+    padding-inline-end: 2.25rem;
+  }
+
+  /* Se detiene al interactuar, para poder leer con calma */
+  .marquee:hover .marquee__track,
+  .marquee:focus-within .marquee__track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__track {
+      animation: none;
+    }
+
+    /* Sin animacion no hace falta la copia */
+    .marquee__group[aria-hidden="true"] {
+      display: none;
+    }
+  }
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
