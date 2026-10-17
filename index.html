@@ -2,6 +2,26 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      /*
+        Restaura la ruta que `public/404.html` guardo en el query string cuando
+        GitHub Pages devolvio el 404 (por ejemplo /portafolio/blogs). Tiene que
+        ejecutarse antes del script de la app, o el router leeria la URL equivocada.
+      */
+      ;(function (l) {
+        if (l.search[1] !== '/') return
+
+        var decoded = l.search
+          .slice(1)
+          .split('&')
+          .map(function (s) {
+            return s.replace(/~and~/g, '&')
+          })
+          .join('?')
+
+        window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash)
+      })(window.location)
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#050505" />

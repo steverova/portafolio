@@ -12,6 +12,7 @@ export const es = {
     hero: 'Inicio',
     proyectos: 'Proyectos',
     herramientas: 'Herramientas',
+    blog: 'Blogs',
     mainLabel: 'Navegación principal',
     footerLabel: 'Navegación del pie de página',
     homeAria: '{{name}} — ir al inicio',
@@ -70,6 +71,19 @@ export const es = {
       infra: 'Infraestructura',
       desarrollo: 'Desarrollo',
     },
+  },
+  blog: {
+    notes: 'Notas',
+    files: 'Archivos',
+    copy: 'Copiar',
+    copied: 'Copiado',
+    copyError: 'No se pudo copiar',
+    back: 'Volver a Blogs',
+    notFound: 'Esa entrada no existe',
+    notFoundBody:
+      'Puede que el enlace esté mal o que la entrada se haya movido. Vuelve al índice del blog para ver lo que hay publicado.',
+    errorTitle: 'Algo salió mal',
+    errorBody: 'No se pudo cargar esta página. Vuelve al índice del blog e inténtalo de nuevo.',
   },
   footer: {
     sections: 'Secciones',

@@ -103,3 +103,38 @@ export function LinkedinIcon({ className = DEFAULT }: IconProps) {
     </svg>
   )
 }
+
+export function CopyIcon({ className = DEFAULT }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <rect x="9" y="9" width="11" height="11" rx="2" />
+      <path d="M5 15H4a1 1 0 01-1-1V4a1 1 0 011-1h10a1 1 0 011 1v1" />
+    </svg>
+  )
+}
+
+export function CheckIcon({ className = DEFAULT }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M4 12.5l5 5L20 6.5" />
+    </svg>
+  )
+}

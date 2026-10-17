@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
-import { hrefForRoute } from '../../lib/routes'
+import { Link } from 'react-router'
+import { useSectionHref } from '../../hooks/useSectionHref'
 import { NAV_ITEMS } from '../../data/navigation'
 import { SITE } from '../../data/site'
 import { Container } from '../ui/Container'
@@ -10,6 +11,7 @@ const CURRENT_YEAR = new Date().getFullYear()
 
 export function Footer() {
   const { t } = useTranslation()
+  const sectionHref = useSectionHref()
 
   const socials = [
     { href: `mailto:${SITE.email}`, label: t('footer.sendMail'), Icon: MailIcon },
@@ -30,14 +32,23 @@ export function Footer() {
           <nav aria-label={t('nav.footerLabel')}>
             <h2 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">{t('footer.sections')}</h2>
             <ul className="mt-3 flex flex-col gap-2">
-              {NAV_ITEMS.map((id) => (
-                <li key={id}>
-                  <a
-                    href={hrefForRoute(id)}
-                    className="text-sm text-muted transition-colors hover:text-foreground"
-                  >
-                    {t(`nav.${id}`)}
-                  </a>
+              {NAV_ITEMS.map((item) => (
+                <li key={item.id}>
+                  {item.kind === 'section' ? (
+                    <a
+                      href={sectionHref(item.id)}
+                      className="text-sm text-muted transition-colors hover:text-foreground"
+                    >
+                      {t(`nav.${item.id}`)}
+                    </a>
+                  ) : (
+                    <Link
+                      to={item.to}
+                      className="text-sm text-muted transition-colors hover:text-foreground"
+                    >
+                      {t(`nav.${item.id}`)}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

@@ -12,6 +12,7 @@ export const en = {
     hero: 'Home',
     proyectos: 'Projects',
     herramientas: 'Tools',
+    blog: 'Blogs',
     mainLabel: 'Main navigation',
     footerLabel: 'Footer navigation',
     homeAria: '{{name}} — go to home',
@@ -70,6 +71,19 @@ export const en = {
       infra: 'Infrastructure',
       desarrollo: 'Development',
     },
+  },
+  blog: {
+    notes: 'Notes',
+    files: 'Files',
+    copy: 'Copy',
+    copied: 'Copied',
+    copyError: 'Could not copy',
+    back: 'Back to blogs',
+    notFound: 'That entry does not exist',
+    notFoundBody:
+      'The link may be wrong or the entry may have moved. Go back to the blog index to see what is published.',
+    errorTitle: 'Something went wrong',
+    errorBody: 'This page could not be loaded. Go back to the blog index and try again.',
   },
   footer: {
     sections: 'Sections',

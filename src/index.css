@@ -83,6 +83,138 @@
   }
 
   /* -------------------------------------------------------------------------
+     Contenido markdown (ruta /blogs). Se estila aqui, con los tokens del tema,
+     en vez de sumar un plugin de tipografia que traeria su propia identidad.
+  ------------------------------------------------------------------------- */
+  .note-content {
+    color: var(--color-muted);
+    line-height: 1.75;
+  }
+
+  /*
+    Margenes por elemento en vez de `> * + *`: el cuerpo se trocea en fragmentos
+    para intercalar los archivos de la entrada (ver NoteBody), asi que los
+    elementos dejan de ser hijos directos de `.note-content`.
+  */
+  .note-content p,
+  .note-content ul,
+  .note-content ol,
+  .note-content pre,
+  .note-content blockquote,
+  .note-content table,
+  .note-content hr {
+    margin-top: 1.25rem;
+  }
+
+  /* El primer bloque no arrastra margen desde arriba, ni dentro de su fragmento. */
+  .note-content > :first-child,
+  .note-content > :first-child > :first-child {
+    margin-top: 0;
+  }
+
+  .note-content h2,
+  .note-content h3,
+  .note-content h4 {
+    margin-top: 2.5rem;
+    color: var(--color-foreground);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .note-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .note-content h3 {
+    font-size: 1.25rem;
+  }
+
+  .note-content strong {
+    color: var(--color-foreground);
+    font-weight: 600;
+  }
+
+  .note-content a {
+    color: var(--color-primary-soft);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .note-content a:hover {
+    color: var(--color-foreground);
+  }
+
+  .note-content ul,
+  .note-content ol {
+    padding-inline-start: 1.25rem;
+  }
+
+  .note-content ul {
+    list-style: disc;
+  }
+
+  .note-content ol {
+    list-style: decimal;
+  }
+
+  .note-content li + li {
+    margin-top: 0.5rem;
+  }
+
+  .note-content li::marker {
+    color: var(--color-primary);
+  }
+
+  .note-content blockquote {
+    border-inline-start: 2px solid var(--color-primary);
+    padding-inline-start: 1rem;
+    color: var(--color-foreground);
+  }
+
+  .note-content code {
+    background-color: var(--color-surface-raised);
+    padding: 0.15em 0.4em;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+  }
+
+  .note-content pre {
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface-raised);
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .note-content pre code {
+    background-color: transparent;
+    padding: 0;
+    font-size: 0.8125rem;
+  }
+
+  .note-content hr {
+    border-color: var(--color-border);
+  }
+
+  .note-content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .note-content th,
+  .note-content td {
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 0.75rem;
+    text-align: start;
+  }
+
+  .note-content th {
+    color: var(--color-foreground);
+    font-weight: 600;
+  }
+
+  /* -------------------------------------------------------------------------
      Marquesina de logos: filas que se desplazan en loop.
      Cada grupo se repite (copia) y el track se mueve -50% para un loop continuo.
      El gap del grupo se traslada como padding para que -50% caiga exacto.

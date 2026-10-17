@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <title>Portafolio</title>
+    <script>
+      /*
+        GitHub Pages sirve este archivo para cualquier ruta que no exista como
+        archivo real (por ejemplo /portafolio/blogs al recargar o al abrir el
+        enlace directo). Guardamos la ruta pedida en el query string y volvemos a
+        la home, que la restaura (ver el script equivalente en index.html).
+
+        `segmentCount = 1` porque el sitio vive en /portafolio/. Si algun dia
+        pasa a la raiz del dominio, debe ser 0.
+      */
+      ;(function () {
+        var segmentCount = 1
+        var l = window.location
+
+        l.replace(
+          l.protocol +
+            '//' +
+            l.hostname +
+            (l.port ? ':' + l.port : '') +
+            l.pathname.split('/').slice(0, 1 + segmentCount).join('/') +
+            '/?/' +
+            l.pathname
+              .slice(1)
+              .split('/')
+              .slice(segmentCount)
+              .join('/')
+              .replace(/&/g, '~and~') +
+            (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+            l.hash,
+        )
+      })()
+    </script>
+  </head>
+  <body></body>
+</html>
