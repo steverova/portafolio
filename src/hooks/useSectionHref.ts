@@ -2,9 +2,11 @@ import { useLocation } from 'react-router'
 import { hrefForRoute, type Route } from '../lib/routes'
 
 /**
- * Href de una seccion de la home. Dentro de la home es un ancla normal
- * (`#proyectos`), que respeta el scroll suave sin recargar la pagina. Desde otra
- * ruta (p. ej. `/blogs`) apunta a la home (`/#proyectos`).
+ * Destino de una seccion de la home, relativo al `basename` del router.
+ * Dentro de la home es un ancla (`#proyectos`); desde otra ruta (p. ej.
+ * `/blogs`) apunta a la home (`/#proyectos`). Se usa con `<Link>`/`<NavLink>`
+ * para que react-router le añada el subdirectorio de GitHub Pages
+ * (`/portafolio/`) y baje al ancla con `ScrollRestoration`.
  */
 export function useSectionHref() {
   const { pathname } = useLocation()

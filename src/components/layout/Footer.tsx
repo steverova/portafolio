@@ -34,12 +34,12 @@ export function Footer() {
               {NAV_ITEMS.map((item) => (
                 <li key={item.id}>
                   {item.kind === 'section' ? (
-                    <a
-                      href={sectionHref(item.id)}
+                    <Link
+                      to={sectionHref(item.id)}
                       className="text-sm text-muted transition-colors hover:text-foreground"
                     >
                       {t(`nav.${item.id}`)}
-                    </a>
+                    </Link>
                   ) : (
                     <Link
                       to={item.to}

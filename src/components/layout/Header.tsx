@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { NavLink } from 'react-router'
+import { Link, NavLink } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { cn } from '../../lib/cn'
 import type { Route } from '../../lib/routes'
@@ -61,8 +61,8 @@ export function Header({ activeSection }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/80 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <a
-          href={sectionHref('hero')}
+        <Link
+          to={sectionHref('hero')}
           className="flex items-center gap-2 font-semibold tracking-tight"
           aria-label={t('nav.homeAria', { name: SITE.name })}
         >
@@ -73,7 +73,7 @@ export function Header({ activeSection }: HeaderProps) {
             {SITE.name.charAt(0)}
           </span>
           <span className="hidden text-sm sm:inline">{SITE.name}</span>
-        </a>
+        </Link>
 
         {/* Navegacion de escritorio */}
         <nav aria-label={t('nav.mainLabel')} className="hidden md:block">
@@ -85,14 +85,14 @@ export function Header({ activeSection }: HeaderProps) {
               return (
                 <li key={item.id}>
                   {item.kind === 'section' ? (
-                    <a
-                      href={sectionHref(item.id)}
+                    <Link
+                      to={sectionHref(item.id)}
                       aria-current={sectionIsActive ? 'page' : undefined}
                       className={desktopLinkClass(sectionIsActive)}
                     >
                       {t(`nav.${item.id}`)}
                       {sectionIsActive ? <ActiveDot /> : null}
-                    </a>
+                    </Link>
                   ) : (
                     <NavLink to={item.to} className={({ isActive }) => desktopLinkClass(isActive)}>
                       {({ isActive }) => (
@@ -140,14 +140,14 @@ export function Header({ activeSection }: HeaderProps) {
               return (
                 <li key={item.id}>
                   {item.kind === 'section' ? (
-                    <a
-                      href={sectionHref(item.id)}
+                    <Link
+                      to={sectionHref(item.id)}
                       onClick={closeMenu}
                       aria-current={sectionIsActive ? 'page' : undefined}
                       className={mobileLinkClass(sectionIsActive)}
                     >
                       {t(`nav.${item.id}`)}
-                    </a>
+                    </Link>
                   ) : (
                     <NavLink
                       to={item.to}
