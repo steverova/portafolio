@@ -26,7 +26,6 @@ export const es = {
     role: 'Desarrollador Full Stack',
     tagline:
       'Desarrollador full stack que convierte ideas en productos web listos para producción. Construyo interfaces rápidas, accesibles y responsivas con React, TypeScript y Angular, sobre APIs REST en Node.js en la nube, cuidando rendimiento, accesibilidad y cada detalle.',
-    location: 'Remoto · Latinoamérica',
   },
   hero: {
     greeting: 'Hola, soy',

@@ -26,7 +26,6 @@ export function Footer() {
           <div className="max-w-sm">
             <p className="text-lg font-semibold tracking-tight">{SITE.name}</p>
             <p className="mt-1 text-sm text-muted">{t('site.role')}</p>
-            <p className="mt-3 text-sm text-muted">{t('site.location')}</p>
           </div>
 
           <nav aria-label={t('nav.footerLabel')}>
