@@ -1,40 +1,61 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router'
 import { ROUTES, type Route } from '../lib/routes'
+
+/** Altura del header sticky + su margen: la linea que decide la seccion activa. */
+const HEADER_OFFSET = 80
+
+/** Tolerancia para el aterrizaje en un ancla, que deja el borde justo en la linea. */
+const EPSILON = 4
 
 /**
  * Scroll spy: devuelve la seccion visible actualmente.
- * Observa una franja justo debajo del header sticky (64px) y marca la primera
- * seccion que cae dentro, de modo que el menu siempre refleja donde estas.
+ *
+ * Se calcula por geometria (la ultima seccion cuyo borde superior ya cruzo la
+ * linea del header) y no con IntersectionObserver. Las secciones son contiguas,
+ * asi que al bajar a un ancla el borde inferior de la seccion anterior queda
+ * pegado a la franja de deteccion: el observer la seguia contando como visible
+ * y, al elegir la primera de `ROUTES`, el resaltado se quedaba en la anterior.
  */
 export function useActiveSection(): Route {
+  const { pathname } = useLocation()
   const [active, setActive] = useState<Route>(ROUTES[0])
 
+  // `pathname` en las deps: al entrar y salir del blog las secciones se montan
+  // y desmontan, y hay que reenganchar el seguimiento.
   useEffect(() => {
-    const sections = ROUTES.map((id) => document.getElementById(id)).filter(
-      (el): el is HTMLElement => el !== null,
-    )
+    const update = () => {
+      let current: Route = ROUTES[0]
 
-    if (sections.length === 0) return
+      for (const id of ROUTES) {
+        const top = document.getElementById(id)?.getBoundingClientRect().top
+        if (top !== undefined && top <= HEADER_OFFSET + EPSILON) current = id
+      }
 
-    const visibles = new Set<string>()
+      setActive(current)
+    }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) visibles.add(entry.target.id)
-          else visibles.delete(entry.target.id)
-        }
+    let frame = 0
+    const schedule = () => {
+      if (frame) return
+      frame = requestAnimationFrame(() => {
+        frame = 0
+        update()
+      })
+    }
 
-        const first = ROUTES.find((route) => visibles.has(route))
-        if (first) setActive(first)
-      },
-      // Franja de deteccion: desde los 80px superiores hasta el 30% del alto.
-      { rootMargin: '-80px 0px -70% 0px', threshold: 0 },
-    )
+    if (!ROUTES.some((id) => document.getElementById(id))) return
 
-    for (const section of sections) observer.observe(section)
-    return () => observer.disconnect()
-  }, [])
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    update()
+
+    return () => {
+      if (frame) cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+    }
+  }, [pathname])
 
   return active
 }
