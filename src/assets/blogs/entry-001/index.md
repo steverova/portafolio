@@ -7,11 +7,12 @@ description: 'Por qué dividí mi asistente en tres agentes con permisos y funci
 
 ## Qué es OpenCode
 
-OpenCode es un agente de programación que vive en la terminal. Trabaja sobre tu
-proyecto: lee archivos, busca en el código, edita, ejecuta comandos y se conecta
-al modelo que tú elijas. Su arquitectura es cliente-servidor: la interfaz se
-conecta a un servicio en segundo plano que es el dueño de las sesiones, la
-configuración, los plugins, los permisos y la ejecución de herramientas.
+[OpenCode](https://opencode.ai/) es un agente de programación que vive en la
+terminal. Trabaja sobre tu proyecto: lee archivos, busca en el código, edita,
+ejecuta comandos y se conecta al modelo que tú elijas. Su arquitectura es
+cliente-servidor: la interfaz se conecta a un servicio en segundo plano que es el
+dueño de las sesiones, la configuración, los plugins, los permisos y la ejecución
+de herramientas.
 
 Esa separación es la que hace posible lo demás: como la configuración no está
 atada a la interfaz, puedes definir **perfiles** con reglas y permisos propios.

@@ -16,6 +16,28 @@ const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/
 /** Comillas envolventes (YAML permite `'texto'` o `"texto"`); se quitan. */
 const QUOTED = /^(['"])([\s\S]*)\1$/
 
+/** Enlaces externos (http/https). */
+const EXTERNAL_LINK = /^https?:\/\//i
+
+/*
+ * Los enlaces externos se abren en pestana nueva, como en la cabecera, el pie y
+ * las tarjetas de proyecto. Todo lo demas (anclas y rutas relativas) delega en el
+ * renderer por defecto devolviendo `false`, para no cambiar su comportamiento.
+ */
+marked.use({
+  renderer: {
+    link({ href, title, tokens }) {
+      if (!EXTERNAL_LINK.test(href)) return false
+
+      const titleAttr = title ? ` title="${title}"` : ''
+      const text = this.parser.parseInline(tokens)
+
+      return `<a href="${href}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`
+    },
+  },
+})
+
+
 function parseValue(raw: string): string {
   const match = QUOTED.exec(raw)
   return match ? match[2] : raw
